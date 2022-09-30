@@ -58,6 +58,17 @@ app.get("/game/select/:year" , (req,res)=>{
     })
 })
 
+app.get("/game/:name" , (req,res)=>{
+    const name = req.params.name
+    getGames((err,data)=>{
+        if(err){
+            return res.status(404).send(err)
+        }
+        const game = data.find((el) => el.name === name);
+        res.status(200).json(game)
+    })
+})
+
 
 app.listen(port, hostname, ()=>{
     console.log(`Server is running on http://${hostname}:${port}`);
